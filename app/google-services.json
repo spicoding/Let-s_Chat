@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "611420460373",
+    "project_id": "chat-app-47c83",
+    "storage_bucket": "chat-app-47c83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611420460373:android:33280ace650977c6d54bdc",
+        "android_client_info": {
+          "package_name": "com.example.finalmorning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "611420460373-tu0lsqgo7gf4424dnej4tn5mi20atk5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA944HVcTMOkWdbUF9BqEQMOv6aQTMyn4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "611420460373-tu0lsqgo7gf4424dnej4tn5mi20atk5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
