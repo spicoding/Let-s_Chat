@@ -7,9 +7,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_Recycler_View"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="651dp"
+        android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
 

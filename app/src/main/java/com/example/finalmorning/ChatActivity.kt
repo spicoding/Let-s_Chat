@@ -1,7 +1,6 @@
 package com.example.finalmorning
 
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -21,15 +20,12 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatRecyclerView: RecyclerView
     private lateinit var messageBox: EditText
     private lateinit var sendButton: ImageView
-    private lateinit var messageList : ArrayList<Message>
+    private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
-    private lateinit var mDbRef : DatabaseReference
+    private lateinit var mDbRef: DatabaseReference
 
     private var receiverRoom: String? = null
     private var senderRoom: String? = null
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,65 +36,47 @@ class ChatActivity : AppCompatActivity() {
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
 
         senderRoom = receiverUid + senderUid
-
         receiverRoom = senderUid + receiverUid
-
 
         supportActionBar?.title = name
 
         chatRecyclerView = findViewById(id.chat_Recycler_View)
         messageBox = findViewById(id.message_box)
         sendButton = findViewById(id.send_button)
-        messageList= ArrayList()
-        messageAdapter = MessageAdapter(this,messageList)
+        messageList = ArrayList()
+        messageAdapter = MessageAdapter(this, messageList)
 
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
 
-
-
-        mDbRef =FirebaseDatabase.getInstance().reference
+        mDbRef = FirebaseDatabase.getInstance().getReference()
 
 
         //Logic for adding data to the recycler view
 
         mDbRef.child("chats").child(senderRoom!!).child("messages")
-            .addValueEventListener(object :ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     messageList.clear()
 
-                    for(postSnapshot in snapshot.children){
+                    for (postSnapshot in snapshot.children) {
 
                         val message = postSnapshot.getValue(Message::class.java)
                         messageList.add(message!!)
 
                     }
                     messageAdapter.notifyDataSetChanged()
-
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
 
-
-
-
                 }
-
-
             })
-
-
-
-
-
-
         //adding the message to the realtime database
         sendButton.setOnClickListener {
             val message = messageBox.text.toString()
-            val messageObject = Message(message,senderUid)
+            val messageObject = Message(message, senderUid)
 
             mDbRef.child("chats").child(senderRoom!!).child("message").push()
                 .setValue(messageObject).addOnSuccessListener {
@@ -111,3 +89,4 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 }
+
