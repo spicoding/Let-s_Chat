@@ -8,77 +8,74 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 
-class MessageAdapter(val context: Context, private val messageList: ArrayList<Message>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+class MessageAdapter (val context: Context, val messageList :ArrayList<Message>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val ITEM_RECEIVED = 1
     val ITEM_SENT = 2
 
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return if(viewType == 1){
-            //inflate receive
-            val view = LayoutInflater.from(context).inflate(R.layout.received, parent, false)
-            ReceiveViewHolder(view)
+        if (viewType == 1){
+            //Inflate receive
 
-        }else{
-            //inflate sent
-            val view = LayoutInflater.from(context).inflate(R.layout.sent, parent, false)
-            SentViewHolder(view)
+            val view: View = LayoutInflater.from(context).inflate(com.example.finalmorning.R.layout.received, parent, false)
+            return ReceiveViewHolder(view)
 
-
-        }
-
-
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)  {
-
-        val currentMessage = messageList[position]
-
-        if(holder.javaClass === SentViewHolder::class.java){
-            // do functionality of the sent view holder
-
-        val viewHolder = holder as SentViewHolder
-            holder.sentMessage.text = currentMessage.message
-
-    }else{
-        val viewHolder = holder as ReceiveViewHolder
-            holder.receiveMessage.text = currentMessage.message
+        } else{
+            //Inflate sent
+            val view: View = LayoutInflater.from(context).inflate(com.example.finalmorning.R.layout.sent, parent, false)
+            return SentViewHolder(view)
 
         }
+
 
     }
 
     override fun getItemViewType(position: Int): Int {
-        val currentMessage = messageList[position]
+        val currentMessaage = messageList[position]
 
-        return when {
-            FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.senderId) -> ITEM_SENT
-            else -> ITEM_RECEIVED
+        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessaage.senderId)){
+            return ITEM_SENT
+        }else{
+            return ITEM_RECEIVED
         }
+
     }
 
     override fun getItemCount(): Int {
-
         return messageList.size
 
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-    class SentViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val sentMessage: TextView = itemView.findViewById(R.id.txt_sent)
+        val currentMessage = messageList[position]
 
+        if (holder.javaClass == SentViewHolder::class.java){
+            // Stuff for SentViewHolder
+            val viewHolder = holder as SentViewHolder
+            holder.sentMessage.text = currentMessage.message
+
+        } else{
+            //Stuff for ReceiveViewHolder
+            val viewHolder = holder as ReceiveViewHolder
+            holder.receivedMessage.text = currentMessage.message
+
+
+        }
 
     }
 
-    class ReceiveViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val receiveMessage: TextView = itemView.findViewById(R.id.txt_received)
-
+    class  SentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val sentMessage = itemView.findViewById<TextView>(com.example.finalmorning.R.id.txt_sent)
 
     }
 
+    class  ReceiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val receivedMessage = itemView.findViewById<TextView>(com.example.finalmorning.R.id.txt_received)
+
+    }
 }

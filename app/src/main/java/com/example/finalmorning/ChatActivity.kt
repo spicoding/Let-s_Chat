@@ -21,7 +21,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var chatRecyclerView: RecyclerView
     private lateinit var messageBox: EditText
     private lateinit var sendButton: ImageView
-    private var messageList = ArrayList<Message>()
+    private lateinit var messageList : ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var mDbRef : DatabaseReference
 
@@ -30,7 +30,7 @@ class ChatActivity : AppCompatActivity() {
 
 
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_chat)
@@ -42,9 +42,6 @@ class ChatActivity : AppCompatActivity() {
         senderRoom = receiverUid + senderUid
 
         receiverRoom = senderUid + receiverUid
-
-
-
 
 
         supportActionBar?.title = name
