@@ -2,14 +2,14 @@ package com.example.finalmorning
 
 
 // IMPORTING SERVICES AND PACKAGES
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.finalmorning.R.*
+import com.example.finalmorning.R.id
+import com.example.finalmorning.R.layout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -61,16 +61,16 @@ class ChatActivity : AppCompatActivity() {
             val messageObject = Message(message, senderUid)
             mDbRef.child("chats").child(senderRoom!!).child("Messages").push()
                 .setValue(messageObject).addOnSuccessListener {
-                    mDbRef.child("chats").child(receiverRoom!!).child("Message").push()
+                    mDbRef.child("chats").child(receiverRoom!!).child("Messages").push()
                         .setValue(messageObject)
                 }
             messageBox.setText("")
         }
 
     // Logic for adding data to the recycler view
-        mDbRef.child("Chats").child(senderRoom!!).child("Message")
+        mDbRef.child("chats").child(senderRoom!!).child("Message")
             .addValueEventListener(object: ValueEventListener{
-                @SuppressLint("NotifyDataSetChanged")
+
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     for(postSnapshot in snapshot.children){
