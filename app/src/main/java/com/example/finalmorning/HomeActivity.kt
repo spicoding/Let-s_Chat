@@ -1,7 +1,7 @@
 package com.example.finalmorning
 
+// IMPORTING SERVICES AND PACKAGES
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,39 +38,33 @@ class HomeActivity : AppCompatActivity() {
         userRecyclerView.layoutManager = LinearLayoutManager(this)
         userRecyclerView.adapter = adapter
 
-        mDbRef.child("user").addValueEventListener(object : ValueEventListener{
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
+    // Add Users to the Recycler View
 
+        mDbRef.child("user").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
                 for(postSnapshot in snapshot.children){
                     val currentUser = postSnapshot.getValue(User::class.java)
-
                     if(mAuth.currentUser?.uid!= currentUser?.uid){
-
                     userList.add(currentUser!!)
                     }
-
                 }
                 adapter.notifyDataSetChanged()
-
             }
-
             override fun onCancelled(error: DatabaseError) {
-
-
-
             }
-
         })
-
-
     }
 
+
+
+    //Menu button Functionality
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    //Logout Functionality
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.logout)
@@ -82,3 +76,5 @@ class HomeActivity : AppCompatActivity() {
             return true
     }
 }
+
+//End Of HOME ACTIVITY
