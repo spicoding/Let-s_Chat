@@ -1,5 +1,7 @@
 package com.example.finalmorning
 
+// IMPORTING SERVICES AND PACKAGES
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 
+//Create a class for the Login Activity
+
 class LogIn : AppCompatActivity() {
+    //Initializing variables
 
     private lateinit var btnsignup : Button
     private lateinit var edt_email:EditText
@@ -21,6 +26,7 @@ class LogIn : AppCompatActivity() {
         setContentView(R.layout.activity_log_in)
         supportActionBar?.hide()
 
+        //Initializing Firebase Authentication
         mAuth = FirebaseAuth.getInstance()
 
         btnsignup = findViewById(R.id.btn_signup)
@@ -28,12 +34,15 @@ class LogIn : AppCompatActivity() {
         edt_email = findViewById(R.id.edt_email)
         edt_password = findViewById(R.id.edt_password)
 
+        // Setting Up Button Navigation
 
         btnsignup.setOnClickListener {
 
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }
+
+        // Creating the login Procedure
 
         btnlogin.setOnClickListener {
             val email = edt_email.text.toString()
@@ -43,8 +52,10 @@ class LogIn : AppCompatActivity() {
         }
     }
 
+    // Creating the login functionality
+
     private fun login(email: String, password: String) {
-        //logic of logging in user
+        //logic of logging in user with reference to Firebase
 
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->

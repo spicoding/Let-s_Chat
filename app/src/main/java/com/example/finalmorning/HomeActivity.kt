@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+//Create a class for the Home Activity
+
 class HomeActivity : AppCompatActivity() {
 //   Initializing my variables to call them later in the code
     private lateinit var userRecyclerView : RecyclerView
