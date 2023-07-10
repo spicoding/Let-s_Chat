@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+//END OF IMPORTS
 
 
 //START OF FUNCTIONALITY
@@ -31,7 +32,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var mDbRef: DatabaseReference
-
     private var receiverRoom: String? = null
     private var senderRoom: String? = null
 
